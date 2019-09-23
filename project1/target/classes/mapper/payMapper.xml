@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.dao.PaymentDAO">
+
+	<select id="paymentList" resultType="PaymentVO">
+	<![CDATA[
+		select * from payment
+		order by payment_num
+	]]>
+	</select>
+
+	<insert id="payment">
+		insert into payment (charge, record_num)
+		values (#{charge},	#{record_num})
+	</insert>
+
+</mapper>

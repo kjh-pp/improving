@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.dao.RecordDAO">
+	<select id="CallRecord" resultType="Integer">
+	<![CDATA[
+		select record_num from record
+		where office_num = #{office_num} and member_num = #{member_num} and bike_num = #{bike_num};
+	]]>
+	</select>
+	
+	<select id="RecordList" resultType="RecordVO">
+	<![CDATA[
+		select *
+		from record
+		order by record_num;
+	]]>
+	</select>
+	
+	<select id="SelectBike" resultType="Integer">
+	<![CDATA[
+		select bike_num	from bike
+		where office_num = #{office_num}
+		order by office_num, RAND() limit 1;
+	]]>
+	</select>
+	
+	<insert id="InsertRecord" parameterType="RecordForeignVO">
+	<![CDATA[
+		insert Record(member_num, bike_num, office_num, time, DnA)
+		values(#{member_num}, #{bike_num}, #{office_num}, now(), true)
+	]]>
+	</insert>
+
+	<update id="BikeNoWhere">
+		update bike
+		set office_num = null
+		where bike_num = #{bike_num}
+	</update>
+
+</mapper>
